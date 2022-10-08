@@ -13,11 +13,11 @@ const usersSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    contactNo: {
+    contact: {
         type:Number,
         required: true
     },
-    joiningDate: {
+    joining: {
         type: Date,
         required:true
     },

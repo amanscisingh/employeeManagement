@@ -7,21 +7,25 @@ const register = async (req, res, next) => {
         const hashedPass = await bcrypt.hash(req.body.password, 10);
 
         const existingUser = await User.findOne({ email: req.body.email });
+        console.log(existingUser);
         if (existingUser) {
             res.json({ status: false, message: 'User already exists' });
         } else {
             let user = new User({
                 email: req.body.email,
                 name: req.body.name,
-                password: hashedPass
+                password: hashedPass,
+                role: req.body.role,
+                contact: req.body.contact,
+                joining: req.body.joining
             });
-    
+            console.log(user);
             try {
                 await user.save();
                 res.status(201).json({
                     status: true,
                     message: 'User created successfully',
-                    user: user
+                    userInfo: user
                 });   
             } catch (error) {
                 res.status(500).json({
@@ -60,7 +64,8 @@ const login  = async (req, res, next) => {
                         status: true,
                         message: 'User logged in successfully',
                         token,
-                        refreshToken
+                        refreshToken,
+                        userInfo: existingUser
                     });
                 } else {
                     res.json({ status: false, message: 'Password does not matched' });

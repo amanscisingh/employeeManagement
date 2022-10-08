@@ -12,7 +12,7 @@ const Login = () => {
         <h2>Login</h2>
         <br />
 
-        <label htmlFor="email">Please Enter email</label>
+        <label htmlFor="email">Email</label>
         <input type="email" name="email" value={userInfo.email} onChange={
             (e) => {
                 dispatch({
@@ -22,7 +22,7 @@ const Login = () => {
             }
         } />
         <br />
-        <label htmlFor="password">Enter password</label>
+        <label htmlFor="password">Password</label>
         <input type="password" name="password" value={userInfo.password} onChange={
             (e) => {
                 dispatch({
@@ -50,7 +50,7 @@ const Login = () => {
             
                 }
             }
-        }>Login</button>
+        }>Sign In</button>
     </div>
   )
 }

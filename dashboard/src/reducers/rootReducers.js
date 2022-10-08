@@ -3,46 +3,17 @@ const initState = {
         isloggedIn: false,
         accessToken: '',
         refreshToken: '',
-        errorMessage: ''
+        errorMessage: '',
+        user: null // put same userinfo there
     },
     userInfo: {
+        role: 'employee',
         name: 'Aman Singh',
         email: '',
         password: '',
-        password2: '',
-        photo: 'https://lh3.googleusercontent.com/a-/AOh14GhM9pnIzKnvUrfBXFlCn3jNP7qNpJA08bedkyHwew=s360-p-rw-no',
-        _id: '',
-        isAccountComplete: false,
-        cibilScore: '',
-        x1: '',
-        x2: '',
-        x3: '',
-        x4: '',
-        x5: '',
-        x6: '',
-        bankDetails: {
-            adhaar: {
-                number: '',
-                document: '',
-            },
-            pan: {
-                number: '',
-                document: '',
-            },
-            bank: {
-                name: '',
-                accountNumber: '',
-                ifsc: '',
-            },
-            salarySlip: [ // { amount, documentproof }
-                
-            ],
-            ctc: {
-                amount: '',
-            }
-        }
+        contact: null,
+        joining: null
     },
-    loans: [],
     appControls: {
         isSyncing: false,
         isLoading: false,
@@ -55,6 +26,15 @@ const initState = {
 
 const rootReducer = (state=initState, action) => {
     switch (action.type) {
+        case 'UPDATE_ROLE':
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    role: action.payload ? 'admin' : 'employee'
+                }
+            }
+
         case 'UPDATE_NAME':
             return {
                 ...state,
@@ -83,12 +63,21 @@ const rootReducer = (state=initState, action) => {
                 }
             }
 
-        case 'UPDATE_RE_PASSWORD':
+        case 'UPDATE_CONTACT':
             return {
                 ...state,
                 userInfo: {
                     ...state.userInfo,
-                    password2: action.payload
+                    contact: action.payload
+                }
+            }
+
+        case 'UPDATE_JOINING':
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    joining: action.payload
                 }
             }
 

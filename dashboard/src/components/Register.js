@@ -10,7 +10,18 @@ const Register = () => {
 
   return (
     <div className='loginContainer'>
-        <h2>Register</h2>
+        <h2>Fill Your Details</h2>
+        <br />
+
+        <label htmlFor="role">Is Admin?</label>
+        <input type="checkbox" name="role" value={userInfo.role} onChange={
+            (e) => {
+                dispatch({
+                    type: 'UPDATE_ROLE',
+                    payload: e.target.checked
+                })  
+            }
+        } />
         <br />
 
         <label htmlFor="email">Name</label>
@@ -24,7 +35,7 @@ const Register = () => {
         } />
         <br />
 
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">Email ID</label>
         <input type="email" name="email" value={userInfo.email} onChange={
             (e) => {
                 dispatch({
@@ -35,7 +46,7 @@ const Register = () => {
         } />
         <br />
 
-        <label htmlFor="password">Enter password</label>
+        <label htmlFor="password">Password</label>
         <input type="password" name="password" value={userInfo.password} onChange={
             (e) => {
                 dispatch({
@@ -44,8 +55,9 @@ const Register = () => {
                 })  
             }
         } />
+        <br />
 
-        <label htmlFor="password">Re-Enter password</label>
+        {/* <label htmlFor="password">Re-Enter password</label>
         <input type="password" name="password" value={userInfo.password2} onChange={
             (e) => {
                 dispatch({
@@ -53,7 +65,29 @@ const Register = () => {
                     payload:  e.target.value
                 })  
             }
+        } /> */}
+
+        <label htmlFor="contact">Contact Number</label>
+        <input type="tel" name="contact" value={userInfo.contact} onChange={
+            (e) => {
+                dispatch({
+                    type: 'UPDATE_CONTACT',
+                    payload:  e.target.value
+                })  
+            }
+            
         } />
+        <br />
+
+        <label htmlFor="joining">Joining Date</label>
+        <input type="date" name="joining" value={userInfo.joining} onChange={
+            (e) => {
+                dispatch({
+                    type: 'UPDATE_JOINING',
+                    payload:  e.target.value
+                })  
+            }
+        } />    
 
         <br />
         <button onClick={
@@ -82,7 +116,7 @@ const Register = () => {
 
                 
             }
-        }>Register</button>
+        }> { userInfo.role == 'admin' ? "Add Admin" : "Add Employee" } </button>
     </div>
   )
 }
