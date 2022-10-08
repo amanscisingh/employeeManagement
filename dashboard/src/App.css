@@ -1,0 +1,104 @@
+.App{
+  color: rgb(0, 96, 185);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} 
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.loginContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 100px auto;
+}
+
+.headerContainer {
+  position: absolute;
+  top: 0;
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+}
+
+.controllerContainer {
+  position: absolute;
+  top: 80px;
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  border-bottom: 1px solid gray;
+}
+
+.controlButtons {
+  width: 20%;
+  height: 30%;
+  border: 1px solid blue;
+}
+
+.controlButtons:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.bottomContainer {
+  position: absolute;
+  top: 175px;
+  height: 80%;
+  width: 100%;
+  
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+
+.bottomContainer::-webkit-scrollbar {
+  display: none;
+}
+
+img {
+  margin: auto 50px;
+}
+
+.generalInformation{
+  position: relative;
+}
+
+.questionsSection {
+  border-top: 1px solid gray;
+}
+
+/* css for mobile view */
+@media screen and (max-width: 600px) {
+  img{
+    margin: auto 10px;
+  }
+
+  .controlButtons {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

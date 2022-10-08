@@ -1,0 +1,35 @@
+{
+  "name": "p2ploanmanagementsystem",
+  "version": "1.0.0",
+  "description": "A portal to request for loans and grant loans based on your CIBIL score.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amanscisingh/p2pLoanManagementWebApp.git"
+  },
+  "author": "Aman Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amanscisingh/p2pLoanManagementWebApp/issues"
+  },
+  "homepage": "https://github.com/amanscisingh/p2pLoanManagementWebApp#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "create-react-app": "^5.0.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "gridfs-stream": "^1.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.13.3",
+    "multer": "^1.4.4",
+    "multer-gridfs-storage": "^5.0.2",
+    "nodemon": "^2.0.16"
+  }
+}
