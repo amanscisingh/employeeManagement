@@ -6,6 +6,7 @@ const AuthController = require('../controllers/AuthController');
 authRoute.post('/register', AuthController.register);
 authRoute.post('/login', AuthController.login);
 authRoute.post('/refresh-token', AuthController.refreshToken);
+authRoute.post('/verifyAccessToken', AuthController.verifyAccessToken);
 
 // authRoute.get('/register', async (req, res) => {
 //     try {

@@ -1,33 +1,34 @@
 import './App.css';
 import Login from './components/Login';
 import { useDispatch, useSelector } from 'react-redux';
-import Register from './components/Register';
 import Dashboard from './components/Dashboard';
-import {useState} from 'react';
+import {useEffect} from 'react';
+import { fetchAllEmployee, verifyAccessToken } from './actions/apiActions';
 
 function App() {
-  const loginInfo = useSelector(state => state.loginInfo);
-  const userInfo = useSelector(state => state.userInfo);
-  const appControls = useSelector(state => state.appControls);
-  const isloggedIn = loginInfo.isloggedIn;
   const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(verifyAccessToken());
+  }, []);
 
-  const [isLoginView, setIsLoginView] = useState(true);
+  const loginInfo = useSelector(state => state.userReducer);
+  console.log(loginInfo);
+  // const isloggedIn = loginInfo.isloggedIn;
+  const isloggedIn = loginInfo.isloggedIn;
 
-  if(appControls.isError) {
-    alert(appControls.errorMessage);
-    dispatch({
-      type: 'CLEAR_ERROR_MESSAGE'
-    });
-  }
+  // const [isLoginView, setIsLoginView] = useState(true);
+
+  // if(appControls.isError) {
+  //   alert(appControls.errorMessage);
+  //   dispatch({
+  //     type: 'CLEAR_ERROR_MESSAGE'
+  //   });
+  // }
 
   return (
-    <div className="App">
-      { isloggedIn ? <Dashboard />  : isLoginView ? <Login /> : <Register /> }
-
-      { isloggedIn ? "" : <button onClick={ () => setIsLoginView(!isLoginView) }>Toggle Login/Register</button> }
-      
-    </div>
+    <>
+      { isloggedIn ? <Dashboard /> : <Login /> }     
+    </>
   );
 }
 

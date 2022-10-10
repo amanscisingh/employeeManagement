@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../actions/apiActions';
 
 const Login = () => {
-    const userInfo = useSelector(state => state.userInfo);
-    const loginInfo = useSelector(state => state.loginInfo);
+    const userInfo = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
 
   return (
@@ -16,7 +15,7 @@ const Login = () => {
         <input type="email" name="email" value={userInfo.email} onChange={
             (e) => {
                 dispatch({
-                    type: 'UPDATE_EMAIL',
+                    type: 'UPDATE_LOGIN_EMAIL',
                     payload: e.target.value
                 })  
             }
@@ -26,7 +25,7 @@ const Login = () => {
         <input type="password" name="password" value={userInfo.password} onChange={
             (e) => {
                 dispatch({
-                    type: 'UPDATE_PASSWORD',
+                    type: 'UPDATE_LOGIN_PASSWORD',
                     payload: e.target.value
                 })  
             }

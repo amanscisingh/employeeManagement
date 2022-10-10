@@ -17,7 +17,8 @@ const register = async (req, res, next) => {
                 password: hashedPass,
                 role: req.body.role,
                 contact: req.body.contact,
-                joining: req.body.joining
+                joining: req.body.joining,
+                department: req.body.department
             });
             console.log(user);
             try {
@@ -51,13 +52,23 @@ const login  = async (req, res, next) => {
                 const isMatch = await bcrypt.compare(password, existingUser.password);
                 if (isMatch) {
                     const token = jwt.sign({
+                        name: existingUser.name,
                         email: existingUser.email,
-                        userId: existingUser._id
+                        userId: existingUser._id,
+                        role: existingUser.role,
+                        contact: existingUser.contact,
+                        joining: existingUser.joining,
+                        department: existingUser.department
                     }, 'thesecretvalue', { expiresIn: '1h' });
 
                     const refreshToken = jwt.sign({
+                        name: existingUser.name,
                         email: existingUser.email,
-                        userId: existingUser._id
+                        userId: existingUser._id,
+                        role: existingUser.role,
+                        contact: existingUser.contact,
+                        joining: existingUser.joining,
+                        department: existingUser.department
                     }, 'thesecretrefreshtoken', { expiresIn: '48h' });
 
                     res.json({
@@ -101,8 +112,13 @@ const refreshToken = (req, res, next) => {
             });
         } else {
             const token = jwt.sign({
-                email: decoded.email,
-                userId: decoded.userId
+                name: existingUser.name,
+                email: existingUser.email,
+                userId: existingUser._id,
+                role: existingUser.role,
+                contact: existingUser.contact,
+                joining: existingUser.joining,
+                department: existingUser.department
             }, 'thesecretvalue', { expiresIn: '1h' });
             res.json({
                 status: true,
@@ -115,4 +131,21 @@ const refreshToken = (req, res, next) => {
     })
 }
 
-module.exports = { register,login, refreshToken };
+const verifyAccessToken = (req, res) => {
+    try {
+        const token = req.body.accessToken;
+        const decoded = jwt.verify(token, 'thesecretvalue');
+        req.user = decoded;
+        console.log("user authenticated successfully")
+        console.log(decoded)
+        res.status(201).json({
+            status:true,
+            userInfo : decoded
+        })
+
+    } catch (error) {
+        res.json({ status: false, message: 'Authorization Error' });
+    }
+}
+
+module.exports = { register,login, refreshToken, verifyAccessToken };

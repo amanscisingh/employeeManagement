@@ -25,6 +25,14 @@ const usersSchema = new mongoose.Schema({
         type: String, // [employee, admin]
         required:true,
         default: "employee"
+    },
+    department: {
+        type: String,
+        required: true
+    },
+    isBlocked: {
+        type: Boolean,
+        default: false
     }
 }, 
 {
