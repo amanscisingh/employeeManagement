@@ -4,6 +4,7 @@
   "description": "A portal to request for loans and grant loans based on your CIBIL score.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
