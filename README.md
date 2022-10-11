@@ -30,3 +30,10 @@ the frontend will run on localhost:3000
 
 email: test@t.com
 password: abcd1234
+
+# employee login credentials
+(admin will have to create employees...) And same login page will be for employee as well...
+One dummy employee credentials are
+
+email: ramesh@t.com
+password: 1234
