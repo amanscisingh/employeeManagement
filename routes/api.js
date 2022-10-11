@@ -94,10 +94,11 @@ apiRoute.post('/updateUser', authenticate, async (req, res) => {
 // @desc / block employee
 apiRoute.post('/blockuser', authenticate, async (req, res) => {
     try {
-        const user = await User.findOneAndUpdate({ email:req.body.email }, { isBlocked:req.body.isBlocked }, { new: true });
+        const tmp = await User.findOne( {email:req.body.email });
+        const user = await User.findOneAndUpdate({ email:req.body.email }, { isBlocked: !tmp.isBlocked }, { new: true });
         res.status(201).json({
             status: true,
-            message: 'User Un-blocked',
+            message: 'User isBlocked toggled',
             user: user
         });
 

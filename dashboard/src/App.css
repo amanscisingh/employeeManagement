@@ -95,6 +95,7 @@ label{
   justify-content: space-around;
 }
 
+
 input, select, option {
   color: black;
   background-color: #ddd;
@@ -110,6 +111,11 @@ button{
   background-color: #760a9c;
   padding: 10px 30px;
   border-radius: 5px;
+}
+
+button:hover{
+  transform: scale(1.1);
+  transition: .2 ease-in-out;
 }
 
 .loginContainer{

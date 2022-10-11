@@ -50,7 +50,7 @@ const login  = async (req, res, next) => {
         if (existingUser) {
             try {
                 const isMatch = await bcrypt.compare(password, existingUser.password);
-                if (isMatch) {
+                if (isMatch && existingUser.isBlocked==false) {
                     const token = jwt.sign({
                         name: existingUser.name,
                         email: existingUser.email,
@@ -78,6 +78,8 @@ const login  = async (req, res, next) => {
                         refreshToken,
                         userInfo: existingUser
                     });
+                } else if(existingUser.isBlocked) {
+                    res.json({ status: false, message: 'Employee is blocked' });
                 } else {
                     res.json({ status: false, message: 'Password does not matched' });
                 }

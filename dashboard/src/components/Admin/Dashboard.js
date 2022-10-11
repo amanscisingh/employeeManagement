@@ -27,7 +27,7 @@ const Dashbord = () => {
                             payload: allEmployee[i].email
                         })
                     }}> 
-                            <td> {allEmployee[i].name} </td>
+                            <td> {allEmployee[i].name} { allEmployee[i].isBlocked ? '❌' : '✅'  } </td>
                             <td> {allEmployee[i].department} </td>
                             <td> {new Date(allEmployee[i].joining).toLocaleDateString() } </td>  
                         </tr>

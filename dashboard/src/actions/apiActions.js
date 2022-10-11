@@ -81,6 +81,31 @@ export const updateUser = (userinfo) => {
     }
 }
 
+export const blockUser = (email) => {
+    accessToken = window.localStorage.getItem('accessToken');
+    refreshToken = window.localStorage.getItem('refreshToken');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
+    return async (dispatch) => {
+        try {
+            const response = await axios.post(`${BASE_URL}/api/blockUser`, {email: email})
+
+            if (response.data.status === false) {
+                
+                alert("User block toggle Failed");
+            } else {
+                // login the user
+                
+                alert("User block togggle Successful");
+
+            }
+
+        } catch (error) {
+            
+            alert("API error");
+        }
+    }
+}
+
 export const loginUser = (userinfo) => {
     accessToken = window.localStorage.getItem('accessToken');
     refreshToken = window.localStorage.getItem('refreshToken');
@@ -88,15 +113,14 @@ export const loginUser = (userinfo) => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
     return async (dispatch) => {
         try {
-            console.log(userinfo)
             const response = await axios.post(`${BASE_URL}/auth/login`, userinfo)
-            console.log(response)
 
             if(response.data.status === false){
                 dispatch({
                     type: 'LOGIN_FAILURE',
                     payload: response.data.message
                 })
+                alert(response.data.message)
             } else {
                 // login the user
                 window.localStorage.setItem('accessToken', response.data.token);
@@ -105,12 +129,14 @@ export const loginUser = (userinfo) => {
                     type: 'LOGIN_SUCCESS',
                     payload: response.data
                 })
+                alert(response.data.role)
             }
         } catch (error) {
             dispatch({
                 type: 'LOGIN_FAILURE',
                 payload: error.response.data
             })
+            alert(error.response.data)
         }
     }
 }

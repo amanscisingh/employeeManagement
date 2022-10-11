@@ -100,9 +100,9 @@ const Setting = () => {
                         })  
                     }
                 } >
-                    { updateInfo == 'technical' ? <option value="technical" selected > Technical </option> : <option value="technical" > Technical </option> }
-                    { updateInfo == 'sales' ? <option value="sales" selected > Sales </option> : <option value="sales"  > Sales </option> }
-                    { updateInfo == 'hr' ? <option value="hr" selected > HR </option> : <option value="hr"  > HR </option> }
+                    { updateInfo.department == 'technical' ? <option value="technical" selected > Technical </option> : <option value="technical" > Technical </option> }
+                    { updateInfo.department == 'sales' ? <option value="sales" selected > Sales </option> : <option value="sales"  > Sales </option> }
+                    { updateInfo.department == 'hr' ? <option value="hr" selected > HR </option> : <option value="hr"  > HR </option> }
                 </select>
             </div>
 

@@ -58,7 +58,7 @@ const Dashboard = ({email}) => {
     <div className='chartDashboard'>
 
         <div className="box center">
-            {/* <label htmlFor="date">Change Date</label> */}
+            <label htmlFor="date">Change Date 🕓 </label>
             <input type="date" name="date" id="date" value={todayDate}
                 onChange={
                     (e)=> {
