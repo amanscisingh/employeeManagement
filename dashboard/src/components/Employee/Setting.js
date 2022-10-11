@@ -82,7 +82,7 @@ const Setting = () => {
 
             <div className="box">
                 <label htmlFor="joining">Joining Date</label>
-                <input type="date" name="joining" value={new Date(updateInfo.joining).toISOString()} onChange={
+                <input type="date" name="joining" disabled value={new Date(updateInfo.joining).toISOString().split('T')[0]} onChange={
                     (e) => {
                         dispatch({
                             type: 'CHANGE_JOINING',

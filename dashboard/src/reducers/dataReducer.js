@@ -258,4 +258,4 @@ const dataReducer = (state=initState, action) => {
 
 }
 
-module.exports = dataReducer;
+export default dataReducer;

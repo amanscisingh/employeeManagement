@@ -8,8 +8,7 @@ const Dashbord = () => {
         dispatch(fetchAllEmployee());
     }, []);
     const data = useSelector(store => store.dataReducer);
-    const allEmployee = data.allEmployee;
-    console.log(allEmployee);
+    const allEmployee = data.allEmployee || [];
   return (
     <div>   
         <h1 style={ {fontSize: '30px', marginTop: '30px'} }>Admin Dashboard</h1>

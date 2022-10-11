@@ -82,6 +82,13 @@ label{
   justify-content: left;
 }
 
+.buttonBox{
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 input, select, option {
   color: black;
   background-color: #ddd;
@@ -176,6 +183,7 @@ img {
   }
 
   .box {
+    display: flex;
     flex-direction: column;
   }
 

@@ -19,11 +19,28 @@ function prevWeek(date) {
     return pdate.toLocaleDateString();
 }
 
+// @desc /api/getOneUser
+apiRoute.get('/getOneUser', authenticate, async (req, res) => {
+    try {
+        const filter = {};
+        filter['email'] = req.query.email;
+        const user = await User.findOne(filter);
+        console.log(req.body);
+        res.json({
+            status: true,
+            message: 'All users',
+            userInfo: user
+        });
+
+    } catch (error) {
+        res.json({ status: false, error,  message: error.message });
+    }
+})
+
 // @desc /api/
 apiRoute.get('/users', authenticate, async (req, res) => {
     try {
         const filter = {};
-        console.log(req.query);
         if(req.query.role) filter['role'] = req.query.role;
         const allUsers = await User.find(filter);
         console.log(req.body);
@@ -41,17 +58,20 @@ apiRoute.get('/users', authenticate, async (req, res) => {
 // @desc / update user info
 apiRoute.post('/updateUser', authenticate, async (req, res) => {
     try {
-        let user = User.findOne({ email: req.body.email });
         let cPass = req.body.password;
         let nPass = req.body.password2;
-        let contact = req.body.contact;
-        let dept = req.body.department;
+        let updates = {
+            name: req.body.name,
+            contact: req.body.contact,
+            department: req.body.department,
+        }
 
+        let cUser = await User.findOne({email: req.body.email});
         if(cPass != '' && nPass != '') {
-            const isMatch = await bcrypt.compare(cPass, user.password);
+            const isMatch = await bcrypt.compare(cPass, cUser.password);
             const hashedPass = await bcrypt.hash(nPass, 10);
             if(isMatch) {
-                user.password = hashedPass;
+                updates['password'] = hashedPass;
             } else {
                 res.status(201).json({
                     status: false,
@@ -59,10 +79,8 @@ apiRoute.post('/updateUser', authenticate, async (req, res) => {
                 })
             }
         }
-
-        user.contact = contact;
-        user.department = dept;
-        await user.save();
+        console.log(updates)
+        let user = await User.findOneAndUpdate({ email: req.body.email }, updates, { new: true });
         res.status(201).json({
             status: true,
             message: 'User updated successfully',

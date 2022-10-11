@@ -79,7 +79,7 @@ const Setting = () => {
 
             <div className="box">
                 <label htmlFor="joining">Joining Date</label>
-                <input type="date" name="joining" disabled value={updateInfo.joining} onChange={
+                <input type="date" name="joining" disabled value={new Date(updateInfo.joining).toISOString().split('T')[0]} onChange={
                     (e) => {
                         dispatch({
                             type: 'CHANGE_JOINING',
@@ -100,42 +100,52 @@ const Setting = () => {
                         })  
                     }
                 } >
-                    <option value="technical"> Technical </option>
-                    <option value="sales"> Sales </option>
-                    <option value="hr"> HR </option>
+                    { updateInfo == 'technical' ? <option value="technical" selected > Technical </option> : <option value="technical" > Technical </option> }
+                    { updateInfo == 'sales' ? <option value="sales" selected > Sales </option> : <option value="sales"  > Sales </option> }
+                    { updateInfo == 'hr' ? <option value="hr" selected > HR </option> : <option value="hr"  > HR </option> }
                 </select>
             </div>
 
             <br />
-            <button onClick={
-                () => {
-                    if (updateInfo.name.length < 3 ) {
-                        alert('Name must be at least 3 characters long');
-                    } else if(updateInfo.password.length < 3 ) {
-                        alert('Password must be at least 3 characters long');
-                    } else if (updateInfo.contact == null) {
-                        alert('Contact should not be empty');
-                    } else if (updateInfo.joining == null) {
-                        alert('Joining Date should not be empty');
-                    } else {
-                        // accept the registration
-                        const user = {
-                            name: updateInfo.name,
-                            email: updateInfo.email,
-                            password: updateInfo.password,
-                            password2: updateInfo.password2,
-                            contact: updateInfo.contact,
-                            joining: updateInfo.joining,
-                            department: updateInfo.department
+
+            <div className="buttonBox">
+                <button onClick={
+                    () => {
+                        if (updateInfo.name.length < 3 ) {
+                            alert('Name must be at least 3 characters long');
+                        } else if(updateInfo.password.length != 0 && updateInfo.password.length < 3 ) {
+                            alert('Password must be at least 3 characters long');
+                        } else if (updateInfo.contact == null) {
+                            alert('Contact should not be empty');
+                        } else if (updateInfo.joining == null) {
+                            alert('Joining Date should not be empty');
+                        } else {
+                            // accept the registration
+                            const user = {
+                                name: updateInfo.name,
+                                email: updateInfo.email,
+                                password: updateInfo.password,
+                                password2: updateInfo.password2,
+                                contact: updateInfo.contact,
+                                department: updateInfo.department
+                            }
+
+                            dispatch(updateUser(user));
                         }
 
-                        dispatch(updateUser(user));
+
+                        
                     }
+                }> Update </button>
 
+                <button onClick={
+                    ()=> {
+                        window.localStorage.clear();
+                        window.location.reload();
+                    }
+                }> Logout </button>
 
-                    
-                }
-            }> Update </button>
+            </div>
         </div>
     </div>
   )

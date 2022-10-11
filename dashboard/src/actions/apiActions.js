@@ -1,9 +1,9 @@
 import axios from "axios"
 const BASE_URL = 'http://localhost:4000'
-const accessToken = window.localStorage.getItem('accessToken');
-const refreshToken = window.localStorage.getItem('refreshToken');
+let accessToken = window.localStorage.getItem('accessToken');
+let refreshToken = window.localStorage.getItem('refreshToken');
 
-axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` 
+axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
 
 export const registerNewUser = (userinfo) => {
     return async (dispatch) => {
@@ -45,9 +45,13 @@ export const registerNewUser = (userinfo) => {
 }
 
 export const updateUser = (userinfo) => {
+    accessToken = window.localStorage.getItem('accessToken');
+    refreshToken = window.localStorage.getItem('refreshToken');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
     return async (dispatch) => {
         try {
-            const response = await axios.post(`${BASE_URL}/api/updateUser`, { headers: { Authorization: `Bearer ${accessToken} ${refreshToken}` } }, userinfo)
+            console.log(userinfo);
+            const response = await axios.post(`${BASE_URL}/api/updateUser`, userinfo)
             console.log(response)
 
             if (response.data.status === false) {
@@ -74,6 +78,10 @@ export const updateUser = (userinfo) => {
 }
 
 export const loginUser = (userinfo) => {
+    accessToken = window.localStorage.getItem('accessToken');
+    refreshToken = window.localStorage.getItem('refreshToken');
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
     return async (dispatch) => {
         try {
             console.log(userinfo)
@@ -104,6 +112,10 @@ export const loginUser = (userinfo) => {
 }
 
 export const verifyAccessToken = () => {
+    accessToken = window.localStorage.getItem('accessToken');
+    refreshToken = window.localStorage.getItem('refreshToken');
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
     return async (dispatch) => {
         try {
             const response = await axios.post(`${BASE_URL}/auth/verifyAccessToken`, {
@@ -111,11 +123,11 @@ export const verifyAccessToken = () => {
                 'refreshToken': refreshToken
             })
             console.log(response)
-
             if(response.data.status === true){
+                const response2 = await axios.get(`${BASE_URL}/api/getOneUser?email=${response.data.userInfo.email}`)
                 dispatch({
                     type: 'VERIFY_ACCESS_TOKEN',
-                    payload: response.data
+                    payload: response2.data
                 })
             } else {
                 dispatch({
@@ -126,13 +138,16 @@ export const verifyAccessToken = () => {
         } catch (error) {
             dispatch({
                 type: 'LOGIN_FAILURE',
-                payload: error.response.data
+                payload: error.message
             })
         }
     }
 }
 
 export const fetchAllEmployee = () => {
+    accessToken = window.localStorage.getItem('accessToken');
+    refreshToken = window.localStorage.getItem('refreshToken');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
     return function(dispatch) {
 
         axios.get(BASE_URL + `/api/users?role=employee`, { headers: { Authorization: `Bearer ${accessToken} ${refreshToken}` } })
@@ -148,42 +163,48 @@ export const fetchAllEmployee = () => {
 }
 
 export const fetchTodayTasks = (d) => {
-    return function(dispatch) {
-        const date = new Date(d);
-        date.toLocaleDateString();
-        axios.post(BASE_URL + `/api/prevDayTasks`, 
-        { headers: { Authorization: `Bearer ${accessToken} ${refreshToken}` } },
-        {
-            date: date
-        }
-        ).then(response => {
-                console.log(response.data);
+    accessToken = window.localStorage.getItem('accessToken');
+    refreshToken = window.localStorage.getItem('refreshToken');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
+    
+    return async function(dispatch) {
+        try {
+            const date = new Date(d);
+            date.toLocaleDateString();
+            const response = await axios.post(BASE_URL + `/api/prevDayTasks`, {date: date}) ;
+            if(response.data.status == true) {
                 dispatch({type: 'FETCH_TODAYTASK_SUCCESS', payload: response.data})
-                dispatch({type: 'CLEAR_API_ERROR'})
-            })
-            .catch(error => {
-                dispatch({type: 'FETCH_ERROR', payload: error.message})
-            })
+            } else {
+                dispatch({type: 'FETCH_ERROR', payload: response.data.message})
+            }
+            
+        } catch (error) {
+            dispatch({type: 'FETCH_ERROR', payload: error.message});
+            
+        }         
     }
 }
 
 export const fetchWeeklyTasks = (d) => {
-    return function(dispatch) {
-        const date = new Date(d);
-        date.toLocaleDateString();
-        axios.post(BASE_URL + `/api/weeklyTasks`, 
-        { headers: { Authorization: `Bearer ${accessToken} ${refreshToken}` } },
-        {
-            date: date
-        }
-        ).then(response => {
-                console.log(response.data);
+    accessToken = window.localStorage.getItem('accessToken');
+    refreshToken = window.localStorage.getItem('refreshToken');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
+    
+    return async function(dispatch) {
+        try {
+            const date = new Date(d);
+            date.toLocaleDateString();
+            const response = await axios.post(BASE_URL + `/api/weeklyTasks`, {date: date}) ;
+            if(response.data.status == true) {
                 dispatch({type: 'FETCH_WEEKLYTASK_SUCCESS', payload: response.data})
-                dispatch({type: 'CLEAR_API_ERROR'})
-            })
-            .catch(error => {
-                dispatch({type: 'FETCH_ERROR', payload: error.message})
-            })
+            } else {
+                dispatch({type: 'FETCH_ERROR', payload: response.data.message})
+            }
+            
+        } catch (error) {
+            dispatch({type: 'FETCH_ERROR', payload: error.message});
+            
+        }         
     }
 }
 
