@@ -1,5 +1,6 @@
 import axios from "axios"
 const BASE_URL = 'http://localhost:4000'
+// const BASE_URL = 'https://employee-management-007.herokuapp.com'
 let accessToken = window.localStorage.getItem('accessToken');
 let refreshToken = window.localStorage.getItem('refreshToken');
 
@@ -59,12 +60,14 @@ export const updateUser = (userinfo) => {
                     type: 'UPDATE_PROFILE_FAILURE',
                     payload: response.data.message
                 })
+                alert("User Update Failed");
             } else {
                 // login the user
                 dispatch({
                     type: 'UPDATE_PROFILE_SUCCESS',
                     payload: response.data
                 })
+                alert("User Updated Successfully");
 
             }
 
@@ -73,6 +76,7 @@ export const updateUser = (userinfo) => {
                 type: 'UPDATE_PROFILE_FAILURE',
                 payload: error.response.data
             })
+            alert("User Update Failed");
         }
     }
 }
@@ -122,7 +126,7 @@ export const verifyAccessToken = () => {
                 'accessToken' : accessToken,
                 'refreshToken': refreshToken
             })
-            console.log(response)
+            // console.log(response)
             if(response.data.status === true){
                 const response2 = await axios.get(`${BASE_URL}/api/getOneUser?email=${response.data.userInfo.email}`)
                 dispatch({
@@ -162,16 +166,15 @@ export const fetchAllEmployee = () => {
     }
 }
 
-export const fetchTodayTasks = (d) => {
+export const fetchTodayTasks = (date, email) => {
     accessToken = window.localStorage.getItem('accessToken');
     refreshToken = window.localStorage.getItem('refreshToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
     
     return async function(dispatch) {
+        console.log(date)
         try {
-            const date = new Date(d);
-            date.toLocaleDateString();
-            const response = await axios.post(BASE_URL + `/api/prevDayTasks`, {date: date}) ;
+            const response = await axios.post(BASE_URL + `/api/prevDayTasks?email=${email}`, {date: date}) ;
             if(response.data.status == true) {
                 dispatch({type: 'FETCH_TODAYTASK_SUCCESS', payload: response.data})
             } else {
@@ -185,16 +188,15 @@ export const fetchTodayTasks = (d) => {
     }
 }
 
-export const fetchWeeklyTasks = (d) => {
+export const fetchWeeklyTasks = (date, email) => {
     accessToken = window.localStorage.getItem('accessToken');
     refreshToken = window.localStorage.getItem('refreshToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
     
     return async function(dispatch) {
         try {
-            const date = new Date(d);
-            date.toLocaleDateString();
-            const response = await axios.post(BASE_URL + `/api/weeklyTasks`, {date: date}) ;
+            const response = await axios.post(BASE_URL + `/api/weeklyTasks?email=${email}`, {date: date}) ;
+            console.log(response)
             if(response.data.status == true) {
                 dispatch({type: 'FETCH_WEEKLYTASK_SUCCESS', payload: response.data})
             } else {
@@ -208,7 +210,6 @@ export const fetchWeeklyTasks = (d) => {
     }
 }
 
-
 export const createTask = (task) => {
     return async function(dispatch) {
         try {
@@ -216,12 +217,15 @@ export const createTask = (task) => {
             console.log(response)
             if(response.data.status == true) {
                 dispatch({type: 'TASK_CREATED', payload: response.data})
+                alert("Task Created Successfully");
                 
             } else {
-                dispatch({type: 'FETCH_ERROR', payload: response.data.message})
+                dispatch({type: 'FETCH_ERROR', payload: response.data.message});
+                alert("Task Creation Failed");
             }
         } catch (error) {
-            dispatch({type: 'FETCH_ERROR', payload: error.message})
+            dispatch({type: 'FETCH_ERROR', payload: error.message});
+            alert("Task Creation Failed");
         }
     }
 }

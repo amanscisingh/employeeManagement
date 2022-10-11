@@ -9,6 +9,9 @@ const EmployeeDashboard = () => {
     const class1 = mode=="dashboard" ? "section selected" : "section";
     const class2 = mode=="addTask" ? "section selected" : "section";
     const class3 = mode=="setting" ? "section selected" : "section";
+
+    const email = useSelector(state => state.userReducer.email);
+
   return (
     <div className='container'>
         <div className='topContainer'>
@@ -24,7 +27,7 @@ const EmployeeDashboard = () => {
         </div>
 
         <div className="bottomContainer">
-            { mode == "dashboard" ? <Dashbord /> : mode == "addTask" ? <AddTask /> : <Setting /> }
+            { mode == "dashboard" ? <Dashbord email ={email} /> : mode == "addTask" ? <AddTask /> : <Setting /> }
         </div>
         
 

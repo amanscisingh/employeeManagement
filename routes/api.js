@@ -10,13 +10,13 @@ const authenticate = require('../middleware/authenticate');
 function prevDate (date) {
     let cdate = new Date(date);
     let pdate = new Date(cdate.setDate(cdate.getDate()-1));
-    return pdate.toLocaleDateString();
+    return pdate.toISOString().split('T')[0];
 }
 
 function prevWeek(date) {
     let cdate = new Date(date);
     let pdate = new Date(cdate.setDate(cdate.getDate()-7));
-    return pdate.toLocaleDateString();
+    return pdate;
 }
 
 // @desc /api/getOneUser
@@ -115,9 +115,6 @@ apiRoute.post('/tasks', authenticate, async (req, res) => {
             startTime: req.body.startTime,
             duration: req.body.duration
         })
-
-        console.log(newTask)
-
         await newTask.save();
 
         res.status(201).json({
@@ -134,21 +131,24 @@ apiRoute.post('/tasks', authenticate, async (req, res) => {
 // @desc /to get weekly tasks   
 apiRoute.post('/weeklyTasks', authenticate, async (req, res) => {
     try {
-        let todayDate = new Date(req.body.date);
-        const pDate = prevWeek(todayDate);
-        todayDate.toLocaleDateString();
+        let cDate = new Date(req.body.date);
+        let email = req.query.email;
+        const pDate = prevWeek(cDate);
+        let weeklyTasks = [];
+        const filter = {};
+        if(email != '') filter['email'] = email;
 
-        let allTasks = await Task.findAll({
-            date: {
-                $gte: pDate,
-                $lte: todayDate
+        let allTasks = await Task.find(filter);
+        for(let i=0; i<allTasks.length; i++) {
+            const date = new Date(allTasks[i].startTime);
+            if( date >= pDate && date <= cDate ) {
+                weeklyTasks.push(allTasks[i]);
             }
-        });
-
+        }
         res.status(201).json({
             status: true,
-            message: `task from ${todayDate} to ${pDate}`,
-            tasks: allTasks
+            message: `task from ${cDate} to ${pDate}`,
+            tasks: weeklyTasks
         })
 
     } catch (error) {
@@ -159,17 +159,28 @@ apiRoute.post('/weeklyTasks', authenticate, async (req, res) => {
 // @desc /to get curr day & prev day tasks   
 apiRoute.post('/prevDayTasks', authenticate, async (req, res) => {
     try {
-        let todayDate = new Date(req.body.date);
-        const pDate = prevDate(todayDate);
-        todayDate.toLocaleDateString();
+        let todayDate = new Date(req.body.date).toISOString().split('T')[0];
+        const pDate = prevDate(req.body.date);
+        let email = req.query.email;
+        const filter = {};
+        if(email != '') filter['email'] = email;
+        let allTasks = await Task.find(filter);
 
-        let cTask = await Task.findAll({
-            date: todayDate
-        });
 
-        let pTask = await Task.findAll({
-            date: pDate
-        });
+        let cTask = [];
+        let pTask = [];
+
+        for(let i=0; i<allTasks.length; i++) {
+            console.log(new Date(allTasks[i].startTime).toISOString().split('T')[0]);
+
+            if( new Date(allTasks[i].startTime).toISOString().split('T')[0] ==  todayDate) {
+                cTask.push(allTasks[i]);
+            }
+
+            if( new Date(allTasks[i].startTime).toISOString().split('T')[0] ==  pDate) {
+                pTask.push(allTasks[i]);
+            }
+        }
 
         res.status(201).json({
             status: true,

@@ -21,7 +21,12 @@ const Dashbord = () => {
 
             {
                 allEmployee.map((emp, i) => {
-                    return  <tr> 
+                    return  <tr key={i} className='scale' onClick={() => {
+                        dispatch({
+                            type: "MODAL_OPEN",
+                            payload: allEmployee[i].email
+                        })
+                    }}> 
                             <td> {allEmployee[i].name} </td>
                             <td> {allEmployee[i].department} </td>
                             <td> {new Date(allEmployee[i].joining).toLocaleDateString() } </td>  

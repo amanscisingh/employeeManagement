@@ -25,16 +25,25 @@ const initState = {
         startTime: '',
         duration: ''
     },
-    currentDate: ''
+    isModalOpen: false,
+    modalUser: ''
 }
 
 
 const dataReducer = (state=initState, action) => {
     switch (action.type) {
-        case 'UPDATE_DATE':
+        case 'MODAL_OPEN':
             return {
                 ...state,
-                currentDate: action.payload
+                isModalOpen: true,
+                modalUser: action.payload
+            }
+
+        case 'MODAL_CLOSE':
+            return {
+                ...state,
+                isModalOpen: false,
+                modalUser: ''
             }
 
         case 'TOGGLE_SYNCING':
@@ -123,7 +132,7 @@ const dataReducer = (state=initState, action) => {
             return {
                 ...state,
                 todayTasks: action.payload.todayTasks,
-                prevDayTasks: action.payload.prevtasks,
+                prevDayTasks: action.payload.prevTasks,
                 isSyncing:false
             }
 
@@ -235,7 +244,7 @@ const dataReducer = (state=initState, action) => {
                 ...state,
                 addTask: {
                     description: '',
-                    type: '',
+                    type: 'meeting',
                     startTime: '',
                     duration: ''
                 }

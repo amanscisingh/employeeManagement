@@ -8,7 +8,7 @@ const Login = () => {
 
   return (
     <div className='loginContainer'>
-        <h2>Login</h2>
+        <h1 style={{fontSize: '30px'}}>Login</h1>
         <br />
 
         <label htmlFor="email">Email</label>

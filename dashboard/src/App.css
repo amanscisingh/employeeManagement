@@ -64,6 +64,12 @@ table {
   height: 100%;
 }
 
+.scale:hover {
+  transform: scale(1.02);
+  transition: 0.2 ease-in-out;
+  cursor: pointer;
+}
+
 th, td{
   border: 1px solid #ddd;
   padding: 8px;
@@ -169,6 +175,26 @@ img {
   border-top: 1px solid gray;
 }
 
+.chartDashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.center {
+  margin-top: 30px;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.pies {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 /* css for mobile view */
 @media screen and (max-width: 600px) {
   img{
@@ -189,5 +215,12 @@ img {
 
   .box label {
     margin-bottom: 5px;
+  }
+
+  .pies {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }

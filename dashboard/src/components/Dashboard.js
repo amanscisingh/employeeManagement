@@ -7,7 +7,7 @@ import EmployeeDashboard from './EmployeeDashboard';
 const Dashboard = () => {
   const userData = useSelector(state => state.userReducer);
   const dispatch = useDispatch();
-  const cDate = new Date(Date.now()).toLocaleDateString();
+  const cDate = new Date(Date.now());
   const role = userData.user.role;
 
   useEffect(()=>{
@@ -20,10 +20,6 @@ const Dashboard = () => {
       dispatch(fetchAllEmployee());
     }
 
-    if(role === 'employee') {
-      dispatch(fetchTodayTasks());
-      dispatch(fetchWeeklyTasks());
-    }
   }, []);
 
   return (
