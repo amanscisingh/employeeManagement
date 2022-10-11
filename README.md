@@ -1,7 +1,10 @@
 # employeeManagement
 
-deployed link: 
+deployed link(frontend on netlify): 
 https://employee-management-007.netlify.app/
+
+deployed link(backend on heroku): 
+https://employee-management-007.herokuapp.com
 
 # to run the server (backend)
 Go to root directory then run
