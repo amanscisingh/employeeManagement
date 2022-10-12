@@ -69,7 +69,8 @@ const userReducer = (state=initState, action) => {
                     contact: action.payload.userInfo.contact,
                     joining: action.payload.userInfo.joining,
                     password2:''
-                }
+                },
+                email: action.payload.userInfo.email
             }
 
         case 'LOGIN_FAILURE':

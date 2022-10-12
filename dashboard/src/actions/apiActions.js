@@ -1,6 +1,6 @@
 import axios from "axios"
-const BASE_URL = 'http://localhost:4000'
-// const BASE_URL = 'https://employee-management-007.herokuapp.com'
+// const BASE_URL = 'http://localhost:4000'
+const BASE_URL = 'https://employee-management-007.herokuapp.com'
 let accessToken = window.localStorage.getItem('accessToken');
 let refreshToken = window.localStorage.getItem('refreshToken');
 
@@ -224,7 +224,7 @@ export const fetchWeeklyTasks = (date, email) => {
     return async function(dispatch) {
         try {
             const response = await axios.post(BASE_URL + `/api/weeklyTasks?email=${email}`, {date: date}) ;
-            // console.log(response)
+            console.log(response)
             if(response.data.status == true) {
                 dispatch({type: 'FETCH_WEEKLYTASK_SUCCESS', payload: response.data})
             } else {

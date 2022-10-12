@@ -142,13 +142,13 @@ apiRoute.post('/weeklyTasks', authenticate, async (req, res) => {
         let allTasks = await Task.find(filter);
         for(let i=0; i<allTasks.length; i++) {
             const date = new Date(allTasks[i].startTime);
-            if( date >= pDate && date <= cDate ) {
+            if( (date >= pDate && date <= cDate) || date.toISOString().split('T')[0] ==  cDate.toISOString().split('T')[0] ) {
                 weeklyTasks.push(allTasks[i]);
             }
         }
         res.status(201).json({
             status: true,
-            message: `task from ${cDate} to ${pDate}`,
+            message: `task from ${pDate} to ${cDate}`,
             tasks: weeklyTasks
         })
 
