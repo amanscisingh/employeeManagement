@@ -12,7 +12,7 @@ function App() {
   }, []);
 
   const loginInfo = useSelector(state => state.userReducer);
-  console.log(loginInfo);
+  // console.log(loginInfo);
   // const isloggedIn = loginInfo.isloggedIn;
   const isloggedIn = loginInfo.isloggedIn;
 

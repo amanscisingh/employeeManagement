@@ -4,7 +4,7 @@ import { updateUser } from '../../actions/apiActions';
 
 const Setting = () => {
     const updateInfo = useSelector(state => state.userReducer.updateInfo);
-    console.log(updateInfo)
+    // console.log(updateInfo)
     const dispatch = useDispatch();
 
     // console.log(new Date(updateInfo.joining))
@@ -55,7 +55,7 @@ const Setting = () => {
 
             <div className="box">
                 <label htmlFor="password2">New Password</label>
-                <input type="password2" name="password2" value={updateInfo.password2} onChange={
+                <input type="password" name="password2" value={updateInfo.password2} onChange={
                     (e) => {
                         dispatch({
                             type: 'CHANGE_PASSWORD2',

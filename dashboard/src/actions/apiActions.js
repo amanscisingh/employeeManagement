@@ -11,14 +11,17 @@ export const registerNewUser = (userinfo) => {
         try {
             const response = await axios.post(`${BASE_URL}/auth/register`, userinfo)
             console.log(response)
+            accessToken = window.localStorage.getItem('accessToken');
+            refreshToken = window.localStorage.getItem('refreshToken');
+            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
 
             if (response.data.status === false) {
                 dispatch({
                     type: 'USER_ALREADY_EXISTS',
                     payload: response.data.message
                 })
+                alert(response.data.message)
             } else {
-                // login the user
                 const loginData = {
                     user: userinfo.email,
                     user: userinfo.password
@@ -26,13 +29,12 @@ export const registerNewUser = (userinfo) => {
                 const response2 = await axios.post(`${BASE_URL}/auth/login`, loginData);
                 loginData.token = response2.data.token;
                 loginData.refreshToken = response2.data.refreshToken;
-                window.localStorage.setItem('accessToken', response2.data.token);
-                window.localStorage.setItem('refreshToken', response2.data.refreshToken);
                 loginData.name = userinfo.name;
                 dispatch({
                     type: 'REGISTER_SUCCESS',
                     payload: loginData
                 })
+                alert('User created')
 
             }
 
@@ -51,9 +53,9 @@ export const updateUser = (userinfo) => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
     return async (dispatch) => {
         try {
-            console.log(userinfo);
+            // console.log(userinfo);
             const response = await axios.post(`${BASE_URL}/api/updateUser`, userinfo)
-            console.log(response)
+            // console.log(response)
 
             if (response.data.status === false) {
                 dispatch({
@@ -129,7 +131,7 @@ export const loginUser = (userinfo) => {
                     type: 'LOGIN_SUCCESS',
                     payload: response.data
                 })
-                alert(response.data.role)
+                alert(response.data.userInfo.role)
             }
         } catch (error) {
             dispatch({
@@ -182,7 +184,7 @@ export const fetchAllEmployee = () => {
 
         axios.get(BASE_URL + `/api/users?role=employee`, { headers: { Authorization: `Bearer ${accessToken} ${refreshToken}` } })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 dispatch({type: 'FETCH_ALLEMPLOYEE_SUCCESS', payload: response.data})
                 dispatch({type: 'CLEAR_API_ERROR'})
             })
@@ -198,7 +200,7 @@ export const fetchTodayTasks = (date, email) => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken} ${refreshToken}` ;
     
     return async function(dispatch) {
-        console.log(date)
+        // console.log(date)
         try {
             const response = await axios.post(BASE_URL + `/api/prevDayTasks?email=${email}`, {date: date}) ;
             if(response.data.status == true) {
@@ -222,7 +224,7 @@ export const fetchWeeklyTasks = (date, email) => {
     return async function(dispatch) {
         try {
             const response = await axios.post(BASE_URL + `/api/weeklyTasks?email=${email}`, {date: date}) ;
-            console.log(response)
+            // console.log(response)
             if(response.data.status == true) {
                 dispatch({type: 'FETCH_WEEKLYTASK_SUCCESS', payload: response.data})
             } else {
@@ -240,7 +242,7 @@ export const createTask = (task) => {
     return async function(dispatch) {
         try {
             const response = await axios.post(`${BASE_URL}/api/tasks`, task);
-            console.log(response)
+            // console.log(response)
             if(response.data.status == true) {
                 dispatch({type: 'TASK_CREATED', payload: response.data})
                 alert("Task Created Successfully");

@@ -8,7 +8,7 @@ const initState = {
         name: '',
         email: '',
         password: '',
-        department:'',  
+        department:'technical',  
         contact: null,
         joining: null,
         password2:''

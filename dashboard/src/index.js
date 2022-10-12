@@ -8,12 +8,14 @@ import { createStore, applyMiddleware  } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers/rootReducer';
 import  thunkMiddleware from 'redux-thunk';
-// import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 // const store = createStore(rootReducer);
 const store = createStore(
    rootReducer, 
-  applyMiddleware(thunkMiddleware)
+   composeWithDevTools(
+     applyMiddleware(thunkMiddleware)
+   )
 
 );
 

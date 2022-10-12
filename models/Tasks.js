@@ -6,7 +6,8 @@ const usersSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        default: 'No Description'
     },
     type: {
         type: String,

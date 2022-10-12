@@ -4,7 +4,7 @@ import { updateUser } from '../../actions/apiActions';
 
 const Setting = () => {
   const updateInfo = useSelector(state => state.userReducer.updateInfo);
-    console.log(updateInfo)
+    // console.log(updateInfo)
     const dispatch = useDispatch();
   return (
     <div>

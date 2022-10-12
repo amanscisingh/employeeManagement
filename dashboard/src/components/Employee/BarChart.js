@@ -12,7 +12,7 @@ const BarChart = ({dataPoint, date}) => {
     }
 
     const series =  [{
-        name: 'Weekly Aggregate',
+        name: 'Weekly Aggregate (in minutes)',
         data: dataPoint
     }]
 

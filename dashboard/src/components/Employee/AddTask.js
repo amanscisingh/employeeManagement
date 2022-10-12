@@ -71,9 +71,11 @@ const AddTask = () => {
 
             <button onClick={
                 () => {
-                    if (task.startTime >  new Date(Date.now()) ) {
+                    if (new Date(task.startTime) >  new Date(Date.now()) ) {
                         alert("Start Time can't be greater then current time");
         
+                    } else if(task.duration ==  null || task.duration == '' ) {
+                        alert('Please enter duration')
                     } else {
                         // accept the registration
                         const user = {

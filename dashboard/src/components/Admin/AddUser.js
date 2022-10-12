@@ -4,7 +4,7 @@ import { registerNewUser } from '../../actions/apiActions';
 
 const AddUser = () => {
     const userInfo = useSelector(state => state.dataReducer.userInfo);
-    console.log(userInfo)
+    // console.log(userInfo)
     const dispatch = useDispatch();
 
 
@@ -123,6 +123,10 @@ const AddUser = () => {
             <br />
             <button onClick={
                 () => {
+                    console.log(userInfo)
+                    console.log(new Date(userInfo.joining) > new Date(Date.now()))
+                    console.log(new Date(userInfo.joining))
+                    console.log(new Date(Date.now()));
                     if (userInfo.name.length < 3 ) {
                         alert('Name must be at least 3 characters long');
                     } else if (userInfo.email.length < 3 ) {
@@ -135,6 +139,8 @@ const AddUser = () => {
                         alert('Contact should not be empty');
                     } else if (userInfo.joining == null) {
                         alert('Joining Date should not be empty');
+                    } else if (new Date(userInfo.joining) > new Date(Date.now())) {
+                        alert('Joining Date should not be greater than today');
                     } else {
                         // accept the registration
                         const user = {

@@ -8,7 +8,7 @@ const Dashboard = ({email}) => {
     const dispatch = useDispatch();
     const [todayDate, setTodayDate] = useState(new Date(Date.now()).toISOString().split('T')[0]);
     useEffect(()=> {
-        console.log(email)
+        // console.log(email)
         dispatch(fetchTodayTasks(todayDate, email));
         dispatch(fetchWeeklyTasks(todayDate, email));
     }, [todayDate])
