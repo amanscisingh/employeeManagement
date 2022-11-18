@@ -99,6 +99,7 @@ Clone the repo or fork it
 
 
 # Deployment
+* Prototyping: [Figma Link](https://www.figma.com/file/VFrKAvC6CfABKGB0jHyZmv/Employee-Management-UI?node-id=0%3A1)
 * Frontend:  [Netlify Link](https://employee-management-007.netlify.app/)
 * Backend: [Heroku Link](https://employee-management-007.herokuapp.com)
 
