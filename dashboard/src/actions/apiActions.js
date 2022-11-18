@@ -24,7 +24,7 @@ export const registerNewUser = (userinfo) => {
             } else {
                 const loginData = {
                     user: userinfo.email,
-                    user: userinfo.password
+                    password: userinfo.password
                 }
                 const response2 = await axios.post(`${BASE_URL}/auth/login`, loginData);
                 loginData.token = response2.data.token;
@@ -122,7 +122,7 @@ export const loginUser = (userinfo) => {
                     type: 'LOGIN_FAILURE',
                     payload: response.data.message
                 })
-                alert(response.data.message)
+                alert("logged in as a " + response.data.message)
             } else {
                 // login the user
                 window.localStorage.setItem('accessToken', response.data.token);
@@ -131,7 +131,7 @@ export const loginUser = (userinfo) => {
                     type: 'LOGIN_SUCCESS',
                     payload: response.data
                 })
-                alert(response.data.userInfo.role)
+                alert("logged in as a " + response.data.userInfo.role)
             }
         } catch (error) {
             dispatch({

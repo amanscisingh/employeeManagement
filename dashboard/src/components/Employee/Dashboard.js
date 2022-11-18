@@ -3,6 +3,7 @@ import PieChart from './PieChart'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchTodayTasks, fetchWeeklyTasks } from '../../actions/apiActions';
 import BarChart from './BarChart';
+import AllTasks from './AllTasks';
 
 const Dashboard = ({email}) => {
     const dispatch = useDispatch();
@@ -68,6 +69,12 @@ const Dashboard = ({email}) => {
             />
         </div>
         <hr style={{color:'#760A9C', width: '100%', margin: '0', padding:'0'}} />
+            
+        <div className="data">
+            <AllTasks data = {todayTasks} />
+        </div>
+
+        <hr style={{color:'#760A9C', width: '100%', marginBottom: '10px', padding:'0'}} />
 
         <div className="pies">
             <PieChart dataPoint = {todayT} date = {'Today'}  />

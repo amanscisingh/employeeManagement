@@ -5,6 +5,11 @@ import { loginUser } from '../actions/apiActions';
 const Login = () => {
     const userInfo = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
+    var isLoginDisabled = true;
+
+    if(userInfo.email.length > 0 && userInfo.password.length > 0) {
+        isLoginDisabled = false;
+    }
 
   return (
     <div className='loginContainer'>
@@ -46,10 +51,12 @@ const Login = () => {
                         password: userInfo.password
                     }
                     dispatch(loginUser(userData))
-            
+                    
                 }
             }
-        }>Sign In</button>
+        }
+        disabled = {isLoginDisabled}
+        >Sign In</button>
     </div>
   )
 }

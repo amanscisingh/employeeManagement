@@ -75,6 +75,14 @@ th, td{
   padding: 8px;
 }
 
+table>:first-child {
+  font-weight: bold !important;
+}
+
+tr div {
+  float: center;
+}
+
 label{
   font-size: 20px;
   width: 200px;
@@ -111,6 +119,14 @@ button{
   background-color: #760a9c;
   padding: 10px 30px;
   border-radius: 5px;
+}
+
+button:disabled {
+  background-color: #513e58;
+}
+
+button:disabled:hover{
+  transform: none;
 }
 
 button:hover{
