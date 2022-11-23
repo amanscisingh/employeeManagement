@@ -17,7 +17,7 @@ const Login = () => {
         <br />
 
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" value={userInfo.email} onChange={
+        <input type="email" name="email" placeholder='enter email' value={userInfo.email} onChange={
             (e) => {
                 dispatch({
                     type: 'UPDATE_LOGIN_EMAIL',
@@ -27,7 +27,7 @@ const Login = () => {
         } />
         <br />
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" value={userInfo.password} onChange={
+        <input type="password" placeholder='enter password' name="password" value={userInfo.password} onChange={
             (e) => {
                 dispatch({
                     type: 'UPDATE_LOGIN_PASSWORD',

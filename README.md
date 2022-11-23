@@ -88,6 +88,9 @@ Clone the repo or fork it
     --logo.svg
     --reportWebVitals.js
     --setupTests.js
+  --cypress
+    --files and folders of cypress library
+  --cypress.config.js
   --package.json
   --package-lock.json
 --.gitignore

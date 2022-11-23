@@ -29,34 +29,34 @@ const AddUser = () => {
             <br/>
 
             <div className="box">
-                <label htmlFor="email">Name</label>
-                    <input type="name" name="name" value={userInfo.name} onChange={
-                        (e) => {
-                            dispatch({
-                                type: 'UPDATE_NAME',
-                                payload: e.target.value
-                            })  
-                        }
-                    } />
+                <label htmlFor="name">Name</label>
+                <input data-cy="employeeNameField" type="text" placeholder='Employee name' name="name" value={userInfo.name} onChange={
+                    (e) => {
+                        dispatch({
+                            type: 'UPDATE_NAME',
+                            payload: e.target.value
+                        })  
+                    }
+                } />
             </div>
             <br />
 
             <div className="box">
                 <label htmlFor="email">Email ID</label>
-                    <input type="email" name="email" value={userInfo.email} onChange={
-                        (e) => {
-                            dispatch({
-                                type: 'UPDATE_EMAIL',
-                                payload: e.target.value
-                            })  
-                        }
-                    } />
+                <input data-cy="employeeEmailField" type="email" placeholder='Employee email' name="email" value={userInfo.email} onChange={
+                    (e) => {
+                        dispatch({
+                            type: 'UPDATE_EMAIL',
+                            payload: e.target.value
+                        })  
+                    }
+                } />
             </div>
             <br />
 
             <div className="box">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" value={userInfo.password} onChange={
+                <input data-cy="employeePassField" type="password" placeholder='Enter employee' name="password" value={userInfo.password} onChange={
                     (e) => {
                         dispatch({
                             type: 'UPDATE_PASSWORD',
@@ -67,19 +67,9 @@ const AddUser = () => {
             </div>
             <br />
 
-            {/* <label htmlFor="password">Re-Enter password</label>
-            <input type="password" name="password" value={userInfo.password2} onChange={
-                (e) => {
-                    dispatch({
-                        type: 'UPDATE_RE_PASSWORD',
-                        payload:  e.target.value
-                    })  
-                }
-            } /> */}
-
             <div className="box">
                 <label htmlFor="contact">Contact Number</label>
-                <input type="tel" name="contact" value={userInfo.contact} onChange={
+                <input data-cy="employeeContactField" type="number" placeholder='Enter contact' name="contact" value={userInfo.contact} onChange={
                     (e) => {
                         dispatch({
                             type: 'UPDATE_CONTACT',
@@ -93,7 +83,7 @@ const AddUser = () => {
 
             <div className="box">
                 <label htmlFor="joining">Joining Date</label>
-                <input type="date" name="joining" value={userInfo.joining} onChange={
+                <input data-cy="employeeJoiningField" type="date" placeholder='Enter joining date' name="joining" value={userInfo.joining} onChange={
                     (e) => {
                         dispatch({
                             type: 'UPDATE_JOINING',
@@ -106,7 +96,7 @@ const AddUser = () => {
 
             <div className="box">
                 <label htmlFor="department">Department</label>
-                <select name="department" value={userInfo.department} onChange={
+                <select data-cy="employeeDeptField" name="department" placeholder='Choose department' value={userInfo.department} onChange={
                     (e) => {
                         dispatch({
                             type: 'UPDATE_DEPARTMENT',
@@ -121,7 +111,7 @@ const AddUser = () => {
             </div>
 
             <br />
-            <button onClick={
+            <button data-cy="addEmployeeButton" className='add_employee' onClick={
                 () => {
                     console.log(userInfo)
                     console.log(new Date(userInfo.joining) > new Date(Date.now()))

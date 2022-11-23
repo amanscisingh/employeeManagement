@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllEmployee, fetchTodayTasks, fetchWeeklyTasks } from '../actions/apiActions';
-import AdminDashboard from './AdminDashboard';
+import AdminDashboard from './Admin/AdminDashboard';
 import EmployeeDashboard from './EmployeeDashboard';
 
 const Dashboard = () => {
